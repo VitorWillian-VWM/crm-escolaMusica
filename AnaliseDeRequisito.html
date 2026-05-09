@@ -1,1054 +1,1929 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulário de Requisitos | Sistema Escola de Música</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agenda Musical | Demonstração</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
-    <style>
-        /* ===============================
+  <style>
+    /* ===============================
        RESET GLOBAL
     =============================== */
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Inter", sans-serif;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
 
-        :root {
-            --bg: #f7f4ee;
-            --card: #ffffff;
-            --primary: #8b5e34;
-            --primary-dark: #6f4524;
-            --text: #2f2a25;
-            --muted: #7a7067;
-            --border: #e3d8c9;
-            --soft: #fffaf3;
-            --success: #2f7d4f;
-            --danger: #b42318;
-            --shadow: 0 14px 35px rgba(80, 60, 40, 0.10);
-        }
+    :root {
+      --bg: #f7f4ee;
+      --sidebar: #ffffff;
+      --sidebar-soft: #f3eee4;
+      --primary: #8b5e34;
+      --primary-dark: #6f4524;
+      --card: #ffffff;
+      --text: #2f2a25;
+      --muted: #7a7067;
+      --border: #e3d8c9;
+      --success: #2f7d4f;
+      --warning: #b7791f;
+      --danger: #b42318;
+      --shadow: 0 14px 35px rgba(80, 60, 40, 0.10);
+    }
 
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #f7f4ee, #efe6d9);
-            color: var(--text);
-            padding: 24px;
-        }
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+    }
 
-        button,
-        input,
-        select,
-        textarea {
-            font: inherit;
-        }
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
 
-        button {
-            border: none;
-            cursor: pointer;
-        }
+    button {
+      cursor: pointer;
+      border: none;
+      user-select: none;
+    }
 
-        .container {
-            max-width: 1080px;
-            margin: 0 auto;
-        }
-
-        /* ===============================
-       HEADER
+    /* ===============================
+       APP LAYOUT
     =============================== */
 
-        .header {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 28px;
-            padding: 28px;
-            box-shadow: var(--shadow);
-            margin-bottom: 22px;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 20px;
-            align-items: center;
-        }
+    .app {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
 
-        .header-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 13px;
-            border-radius: 999px;
-            background: #f3eee4;
-            color: var(--primary-dark);
-            font-weight: 800;
-            font-size: 0.82rem;
-            margin-bottom: 14px;
-        }
+    .sidebar {
+      background: linear-gradient(180deg, #ffffff, #f4efe7);
+      color: var(--text);
+      padding: 24px 18px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      border-right: 1px solid var(--border);
+    }
 
-        .header h1 {
-            font-size: clamp(1.7rem, 4vw, 2.6rem);
-            line-height: 1.1;
-            margin-bottom: 10px;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 10px 28px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
 
-        .header p {
-            color: var(--muted);
-            line-height: 1.6;
-            max-width: 760px;
-        }
+    .brand-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: #f3eee4;
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 1.7rem;
+      border: 1px solid var(--border);
+    }
 
-        .header-icon {
-            width: 86px;
-            height: 86px;
-            border-radius: 26px;
-            display: grid;
-            place-items: center;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            font-size: 2.5rem;
-            box-shadow: 0 18px 35px rgba(111, 69, 36, 0.18);
-        }
+    .brand h1 {
+      font-size: 1.05rem;
+      line-height: 1.2;
+    }
 
-        /* ===============================
-       FORM
+    .brand span {
+      font-size: 0.78rem;
+      opacity: 0.75;
+    }
+
+    .menu-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin: 18px 12px 10px;
+      font-weight: 800;
+    }
+
+    .nav-link {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      background: transparent;
+      color: var(--text);
+      margin-bottom: 7px;
+      text-align: left;
+      transition: 0.25s ease;
+      border: 1px solid transparent;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background: #f3eee4;
+      color: var(--primary-dark);
+      transform: translateX(4px);
+      border-color: var(--border);
+    }
+
+    /*.sidebar-note {
+      margin-top: 22px;
+      background: #fffaf3;
+      border: 1px solid var(--border);
+      padding: 14px;
+      border-radius: 16px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--muted);
+    }*/
+
+    .main {
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .mobile-header {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      padding: 14px 16px;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      color: white;
+      background: var(--primary);
+      font-size: 1.4rem;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .page-title h2 {
+      font-size: 1.8rem;
+      margin-bottom: 4px;
+    }
+
+    .page-title p {
+      color: var(--muted);
+    }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 9px 14px;
+      box-shadow: 0 8px 20px rgba(7,59,76,0.08);
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #38bdf8);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+    }
+
+    /* ===============================
+       COMPONENTES
     =============================== */
 
-        .form-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 28px;
-            box-shadow: var(--shadow);
-            padding: 24px;
-        }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
 
-        .section {
-            border: 1px solid var(--border);
-            background: #fffdf8;
-            border-radius: 22px;
-            padding: 20px;
-            margin-bottom: 18px;
-        }
+    .stat-card,
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
 
-        .section-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 14px;
-            margin-bottom: 16px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 14px;
-        }
+    .stat-card {
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+    }
 
-        .section-title h2 {
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .stat-card i {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: #f3eee4;
+      color: var(--primary);
+      font-size: 1.4rem;
+      border: 1px solid var(--border);
+    }
 
-        .section-title h2 i {
-            width: 38px;
-            height: 38px;
-            border-radius: 14px;
-            display: grid;
-            place-items: center;
-            background: #f3eee4;
-            color: var(--primary);
-        }
+    .stat-card span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
 
-        .section-title p {
-            color: var(--muted);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-top: 5px;
-        }
+    .stat-card strong {
+      display: block;
+      font-size: 1.7rem;
+      margin-top: 4px;
+    }
 
-        .tag {
-            white-space: nowrap;
-            background: rgba(47, 125, 79, 0.10);
-            color: var(--success);
-            border: 1px solid rgba(47, 125, 79, 0.18);
-            padding: 7px 12px;
-            border-radius: 999px;
-            font-weight: 800;
-            font-size: 0.78rem;
-        }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+    }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 14px;
-        }
+    .panel {
+      padding: 20px;
+      margin-bottom: 18px;
+    }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
 
-        .form-group.full {
-            grid-column: 1 / -1;
-        }
+    .panel-header h3 {
+      font-size: 1.2rem;
+    }
 
-        label {
-            font-size: 0.88rem;
-            font-weight: 800;
-            color: #4b4038;
-        }
+    .panel-header p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
 
-        input,
-        select,
-        textarea {
-            width: 100%;
-            border: 1px solid var(--border);
-            background: var(--soft);
-            border-radius: 14px;
-            padding: 13px 14px;
-            color: var(--text);
-            outline: none;
-        }
+    .btn-main {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 12px 16px;
+      border-radius: 13px;
+      font-weight: 700;
+      transition: 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      box-shadow: 0 8px 18px rgba(111, 69, 36, 0.16);
+    }
 
-        textarea {
-            resize: vertical;
-            min-height: 94px;
-            line-height: 1.55;
-        }
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(6,148,168,0.28);
+    }
 
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(139, 94, 52, 0.10);
-        }
+    .btn-soft,
+    .btn-danger,
+    .btn-whats {
+      background: rgba(47,125,79,0.10);
+      color: var(--success);
+      border: 1px solid rgba(47,125,79,0.18);
+    }
 
-        .hint {
-            font-size: 0.78rem;
-            color: var(--muted);
-            line-height: 1.5;
-        }
+    .search-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
 
-        .hidden {
-            display: none !important;
-        }
+    .input,
+    .select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: #fffaf3;
+      padding: 12px 13px;
+      color: var(--text);
+      outline: none;
+    }
 
-        .check-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 10px;
-        }
+    .input:focus,
+    .select:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(6,148,168,0.1);
+    }
 
-        .check-card {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            border: 1px solid var(--border);
-            background: #fffaf3;
-            border-radius: 16px;
-            padding: 13px;
-            line-height: 1.4;
-        }
+    .search-row .input {
+      flex: 1;
+      min-width: 220px;
+    }
 
-        .check-card input {
-            width: auto;
-            margin-top: 3px;
-            accent-color: var(--primary);
-        }
+    .table-wrap {
+      overflow-x: auto;
+    }
 
-        .check-card strong {
-            display: block;
-            font-size: 0.9rem;
-            margin-bottom: 2px;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
 
-        .check-card span {
-            color: var(--muted);
-            font-size: 0.8rem;
-        }
+    th,
+    td {
+      padding: 13px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      font-size: 0.92rem;
+    }
 
-        /* ===============================
-       PREVIEW
+    th {
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .badge.success {
+      background: rgba(22,163,74,0.12);
+      color: var(--success);
+    }
+
+    .badge.warning {
+      background: rgba(245,158,11,0.14);
+      color: #b45309;
+    }
+
+    .badge.danger {
+      background: rgba(220,38,38,0.1);
+      color: var(--danger);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .room-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 16px;
+      background: #fffdf8;
+    }
+
+    .room-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+
+    .room-head h4 {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .room-info {
+      display: grid;
+      gap: 9px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+    }
+
+    .progress {
+      height: 9px;
+      background: #e6eff2;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #38bdf8);
+      border-radius: 999px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+      animation: fadePage 0.22s ease;
+    }
+
+    @keyframes fadePage {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===============================
+       MODAL
     =============================== */
 
-        .preview-box {
-            background: #f3eee4;
-            border: 1px dashed #d6c5b2;
-            border-radius: 18px;
-            padding: 16px;
-            color: #4b4038;
-            line-height: 1.6;
-            font-size: 0.92rem;
-        }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(15,23,42,0.58);
+      backdrop-filter: blur(7px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
 
-        .preview-box strong {
-            color: var(--primary-dark);
-        }
+    .overlay.active {
+      display: flex;
+    }
 
-        .message-list {
-            display: grid;
-            gap: 10px;
-            margin-top: 12px;
-        }
+    .modal {
+      width: min(620px, 100%);
+      max-height: 92vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+      border: 1px solid var(--border);
+      animation: modalIn 0.25s ease;
+    }
 
-        .message-card {
-            border: 1px solid var(--border);
-            background: white;
-            border-radius: 16px;
-            padding: 13px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
 
-        .message-card input {
-            width: auto;
-            margin-top: 4px;
-            accent-color: var(--primary);
-        }
+    .modal-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+    }
 
-        .message-card strong {
-            display: block;
-            margin-bottom: 4px;
-        }
+    .modal-header h3 {
+      font-size: 1.25rem;
+    }
 
-        .message-card p {
-            color: var(--muted);
-            font-size: 0.84rem;
-            line-height: 1.45;
-        }
+    .close-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: #eef7f9;
+      color: var(--primary-dark);
+      font-size: 1.25rem;
+    }
 
-        /* ===============================
-       FOOTER ACTIONS
+    .modal-body {
+      padding: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .modal-footer {
+      padding: 16px 20px 20px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: var(--primary-dark);
+      color: white;
+      padding: 14px 16px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      display: none;
+      z-index: 1100;
+      max-width: 320px;
+      line-height: 1.4;
+    }
+
+    .toast.active {
+      display: block;
+      animation: modalIn 0.25s ease;
+    }
+    /* ===============================
+       BOTÕES MAIS PROFISSIONAIS
     =============================== */
 
-        .actions-footer {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-            margin-top: 22px;
-        }
+    .btn-soft,
+    .btn-danger,
+    .btn-whats {
+      padding: 11px 15px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      letter-spacing: 0.2px;
+      min-height: 42px;
+      transition: 0.25s ease;
+      box-shadow: 0 8px 18px rgba(80, 60, 40, 0.08);
+      border-width: 1px;
+      border-style: solid;
+    }
 
-        .btn-main,
-        .btn-soft {
-            padding: 13px 18px;
-            border-radius: 14px;
-            font-weight: 800;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            justify-content: center;
-            transition: 0.25s ease;
-        }
+    .btn-soft {
+      background: linear-gradient(135deg, #fffaf3, #f3eee4);
+      color: var(--primary-dark);
+      border-color: #d8c7b4;
+    }
 
-        .btn-main {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-        }
+    .btn-soft:hover {
+      background: linear-gradient(135deg, #f3eee4, #eadfce);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(111, 69, 36, 0.14);
+    }
 
-        .btn-main:hover,
-        .btn-soft:hover {
-            transform: translateY(-2px);
-        }
+    .btn-whats {
+      background: linear-gradient(135deg, rgba(47,125,79,0.11), rgba(47,125,79,0.06));
+      color: var(--success);
+      border-color: rgba(47,125,79,0.22);
+    }
 
-        .btn-soft {
-            background: #f3eee4;
-            color: var(--primary-dark);
-            border: 1px solid var(--border);
-        }
+    .btn-whats:hover {
+      background: linear-gradient(135deg, rgba(47,125,79,0.18), rgba(47,125,79,0.10));
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(47,125,79,0.12);
+    }
 
-        .toast {
-            position: fixed;
-            bottom: 22px;
-            right: 22px;
-            background: var(--primary-dark);
-            color: white;
-            padding: 14px 16px;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            display: none;
-            max-width: 360px;
-            line-height: 1.45;
-            z-index: 99;
-        }
+    .btn-danger {
+      background: rgba(180,35,24,0.08);
+      color: var(--danger);
+      border-color: rgba(180,35,24,0.16);
+    }
 
-        .toast.active {
-            display: block;
-            animation: toastIn 0.25s ease;
-        }
+    .btn-danger:hover {
+      background: rgba(180,35,24,0.14);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(180,35,24,0.12);
+    }
 
-        @keyframes toastIn {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
+    .btn-soft i,
+    .btn-whats i,
+    .btn-danger i {
+      font-size: 1rem;
+    }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
 
-        /* ===============================
+
+    /* ===============================
        RESPONSIVO
     =============================== */
 
-        @media (max-width: 820px) {
-            body {
-                padding: 14px;
-            }
+    @media (max-width: 1050px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
 
-            .header {
-                grid-template-columns: 1fr;
-            }
+      .sidebar {
+        position: fixed;
+        left: -310px;
+        top: 0;
+        width: 280px;
+        z-index: 1200;
+        transition: 0.3s ease;
+      }
 
-            .header-icon {
-                width: 64px;
-                height: 64px;
-                font-size: 2rem;
-            }
+      .sidebar.open {
+        left: 0;
+      }
 
-            .grid,
-            .check-grid {
-                grid-template-columns: 1fr;
-            }
+      .mobile-header {
+        display: flex;
+      }
 
-            .section-title {
-                flex-direction: column;
-            }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
-            .tag {
-                white-space: normal;
-            }
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
 
-            .actions-footer {
-                flex-direction: column;
-            }
+    @media (max-width: 640px) {
+      .main {
+        padding: 14px;
+      }
 
-            .btn-main,
-            .btn-soft {
-                width: 100%;
-            }
-        }
-    </style>
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .page-title h2 {
+        font-size: 1.45rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-card strong {
+        font-size: 1.45rem;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-footer,
+      .actions,
+      .panel-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-main,
+      .btn-soft,
+      .btn-danger,
+      .btn-whats {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-    <div class="container">
+  <div class="app">
 
-        <header class="header">
-            <div>
-                <span class="header-badge"><i class="ri-file-list-3-line"></i> Análise de requisitos</span>
-                <h1>Formulário inicial do Sistema Interno da Escola de Música</h1>
-                <p>
-                    Este formulário ajuda a levantar as informações principais para iniciar o desenvolvimento do
-                    sistema, evitando retrabalho e deixando claro o que a escola deseja visualizar em cada área.
-                </p>
-            </div>
+    <!-- ===============================
+         SIDEBAR LATERAL
+    =============================== -->
 
-            <div class="header-icon">
-                <i class="ri-music-2-line"></i>
-            </div>
-        </header>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-icon"><i class="ri-music-2-line"></i></div>
+        <div>
+          <h1>Agenda Musical</h1>
+          <span>Gestão interna da escola</span>
+        </div>
+      </div>
 
-        <form class="form-card" id="requisitosForm">
+      <p class="menu-label">Administração</p>
 
-            <!-- ===============================
-           DADOS GERAIS
-      =============================== -->
+      <button class="nav-link active" data-page="dashboard">
+        <i class="ri-dashboard-3-line"></i> Dashboard
+      </button>
 
-            <section class="section">
-                <div class="section-title">
-                    <div>
-                        <h2><i class="ri-building-line"></i> Dados gerais</h2>
-                        <p>Informações básicas para identificação da escola e do responsável pelo projeto.</p>
-                    </div>
-                    <span class="tag">Etapa 1</span>
-                </div>
+      <button class="nav-link" data-page="agenda">
+        <i class="ri-calendar-schedule-line"></i> Agenda e Salas
+      </button>
 
-                <div class="grid">
-                    <div class="form-group">
-                        <label>Nome da escola</label>
-                        <input type="text" placeholder="Ex: Escola de Música Harmonia" name="escola">
-                    </div>
+      <button class="nav-link" data-page="alunos">
+        <i class="ri-graduation-cap-line"></i> Alunos
+      </button>
 
-                    <div class="form-group">
-                        <label>Responsável pelas informações</label>
-                        <input type="text" placeholder="Nome do responsável" name="responsavel">
-                    </div>
+      <button class="nav-link" data-page="professores">
+        <i class="ri-user-star-line"></i> Professores
+      </button>
 
-                    <div class="form-group">
-                        <label>WhatsApp para contato</label>
-                        <input type="text" placeholder="Ex: 67 99999-0000" name="telefone">
-                    </div>
+      <button class="nav-link" data-page="turmas">
+        <i class="ri-team-line"></i> Turmas e Vagas
+      </button>
 
-                    <div class="form-group">
-                        <label>Quantos usuários internos irão usar?</label>
-                        <select name="usuarios">
-                            <option value="">Selecione</option>
-                            <option>Somente administração</option>
-                            <option>Administração e professores</option>
-                            <option>Administração, professores e secretaria</option>
-                            <option>Ainda preciso definir</option>
-                        </select>
-                    </div>
-                </div>
-            </section>
+      <button class="nav-link" data-page="whatsapp">
+        <i class="ri-whatsapp-line"></i> WhatsApp Manual
+      </button>
 
-            <!-- ===============================
+      <p class="menu-label">Demonstração</p>
+    </aside>
+
+    <!-- ===============================
+         CONTEÚDO PRINCIPAL
+    =============================== -->
+
+    <main class="main">
+
+      <div class="mobile-header">
+        <strong>Agenda Musical</strong>
+        <button class="menu-toggle" onclick="toggleSidebar()"><i class="ri-menu-line"></i></button>
+      </div>
+
+      <div class="topbar">
+        <div class="page-title">
+          <h2 id="pageTitle">Dashboard</h2>
+          <p id="pageSubtitle">Visão geral da escola, salas, professores e alunos.</p>
+        </div>
+
+        <div class="user-pill">
+          <div class="avatar">VW</div>
+          <div>
+            <strong>Vitor Willian</strong>
+            <p style="color: var(--muted); font-size: .82rem;">Administrador</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===============================
            DASHBOARD
       =============================== -->
 
-            <section class="section" id="secaoDashboard">
-                <div class="section-title">
-                    <div>
-                        <h2><i class="ri-dashboard-3-line"></i> Dashboard administrativo</h2>
-                        <p>Escolha quais informações principais devem aparecer na tela inicial do sistema.</p>
-                    </div>
-                    <span class="tag">Dashboard</span>
-                </div>
+      <section class="page active" id="page-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div><span>Alunos cadastrados</span><strong id="statAlunos">18</strong></div>
+            <i class="ri-graduation-cap-line"></i>
+          </div>
 
-                <div class="check-grid">
-                    <label class="check-card">
-                        <input type="checkbox" checked>
-                        <div>
-                            <strong>Total de alunos cadastrados</strong>
-                            <span>Indicador rápido para acompanhar crescimento da escola.</span>
-                        </div>
-                    </label>
+          <div class="stat-card">
+            <div><span>Professores ativos</span><strong id="statProfessores">5</strong></div>
+            <i class="ri-user-star-line"></i>
+          </div>
 
-                    <label class="check-card">
-                        <input type="checkbox" checked>
-                        <div>
-                            <strong>Total de professores ativos</strong>
-                            <span>Resumo da equipe disponível no sistema.</span>
-                        </div>
-                    </label>
+          <div class="stat-card">
+            <div><span>Turmas abertas</span><strong id="statTurmas">6</strong></div>
+            <i class="ri-team-line"></i>
+          </div>
 
-                    <label class="check-card">
-                        <input type="checkbox" checked>
-                        <div>
-                            <strong>Turmas abertas</strong>
-                            <span>Quantidade de turmas registradas e em funcionamento.</span>
-                        </div>
-                    </label>
+          <div class="stat-card">
+            <div><span>Vagas disponíveis</span><strong id="statVagas">9</strong></div>
+            <i class="ri-door-open-line"></i>
+          </div>
+        </div>
 
-                    <label class="check-card">
-                        <input type="checkbox" checked>
-                        <div>
-                            <strong>Vagas disponíveis</strong>
-                            <span>Resumo das vagas restantes por turma/sala.</span>
-                        </div>
-                    </label>
-
-                    <label class="check-card">
-                        <input type="checkbox">
-                        <div>
-                            <strong>Aulas do dia</strong>
-                            <span>Lista com aulas e horários do dia atual.</span>
-                        </div>
-                    </label>
-
-                    <label class="check-card">
-                        <input type="checkbox">
-                        <div>
-                            <strong>Avisos internos</strong>
-                            <span>Espaço para lembretes rápidos para professores/secretaria.</span>
-                        </div>
-                    </label>
-                </div>
-
-                <div class="form-group full" style="margin-top:14px;">
-                    <label>Algum outro indicador importante para aparecer no Dashboard?</label>
-                    <textarea id="dashboardObs"
-                        placeholder="Ex: alunos atrasados, aulas canceladas, aniversariantes do mês, mensalidades, etc."></textarea>
-                </div>
-            </section>
-
-            <!-- ===============================
-           AGENDA E SALAS
-      =============================== -->
-
-            <section class="section">
-                <div class="section-title">
-                    <div>
-                        <h2><i class="ri-calendar-schedule-line"></i> Agenda de salas</h2>
-                        <p>Informe as salas existentes e como a escola organiza os horários.</p>
-                    </div>
-                    <span class="tag">Agenda</span>
-                </div>
-
-                <div class="grid">
-                    <div class="form-group">
-                        <label>Quantas salas a escola possui?</label>
-                        <select id="qtdSalas" onchange="toggleSalas()">
-                            <option value="">Selecione</option>
-                            <option value="1-3">1 a 3 salas</option>
-                            <option value="4-6">4 a 6 salas</option>
-                            <option value="7+">Mais de 7 salas</option>
-                            <option value="manual">Prefiro informar manualmente</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Como os horários são organizados?</label>
-                        <select id="organizacaoHorarios">
-                            <option value="">Selecione</option>
-                            <option>Por hora fixa</option>
-                            <option>Por professor</option>
-                            <option>Por sala disponível</option>
-                            <option>Depende da turma/aluno</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group full hidden" id="salasManualBox">
-                        <label>Liste o nome das salas</label>
-                        <textarea id="salasManual" placeholder="Ex:
-Sala 1 - Violão
-Sala 2 - Piano
-Sala 3 - Bateria
-Sala 4 - Canto"></textarea>
-                        <span class="hint">Essas informações ajudam a montar a tela de agenda e disponibilidade de
-                            horários.</span>
-                    </div>
-
-                    <div class="form-group full">
-                        <label>Observações sobre agenda e ocupação das salas</label>
-                        <textarea id="agendaObs"
-                            placeholder="Ex: Algumas salas podem ser usadas por mais de um professor? Existem horários fixos por turma? Existem salas específicas para instrumentos?"></textarea>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===============================
-           ALUNOS E PROFESSORES
-      =============================== -->
-
-            <section class="section">
-                <div class="section-title">
-                    <div>
-                        <h2><i class="ri-user-star-line"></i> Alunos e professores</h2>
-                        <p>Essa etapa ajuda a entender quais dados precisam aparecer nos cadastros.</p>
-                    </div>
-                    <span class="tag">Cadastros</span>
-                </div>
-
-                <div class="grid">
-                    <div class="form-group">
-                        <label>Deseja enviar uma lista inicial de professores?</label>
-                        <select id="temProfessores" onchange="toggleProfessores()">
-                            <option value="">Selecione</option>
-                            <option value="sim">Sim, quero informar agora</option>
-                            <option value="nao">Não, podemos cadastrar depois</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Deseja enviar uma lista inicial de alunos?</label>
-                        <select id="temAlunos" onchange="toggleAlunos()">
-                            <option value="">Selecione</option>
-                            <option value="sim">Sim, quero informar agora</option>
-                            <option value="nao">Não, podemos cadastrar depois</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group full hidden" id="professoresBox">
-                        <label>Informe os professores e especialidades</label>
-                        <textarea id="professoresInfo" placeholder="Ex:
-Lucas Andrade - Violão - Segunda e Quarta
-Fernanda Lima - Piano - Terça e Quinta
-Rafael Costa - Bateria - Sexta"></textarea>
-                    </div>
-
-                    <div class="form-group full hidden" id="alunosBox">
-                        <label>Informe os alunos iniciais, se desejar</label>
-                        <textarea id="alunosInfo" placeholder="Ex:
-Vitória Almeida - Violão - WhatsApp: 67 99999-1111
-Carlos Henrique - Piano - WhatsApp: 67 98888-2222"></textarea>
-                        <span class="hint">Essa parte é opcional. Os alunos também poderão ser cadastrados depois pelo
-                            próprio sistema.</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===============================
-           TURMAS E VAGAS
-      =============================== -->
-
-            <section class="section">
-                <div class="section-title">
-                    <div>
-                        <h2><i class="ri-team-line"></i> Turmas, aulas e vagas</h2>
-                        <p>Defina como as aulas e turmas devem ser organizadas dentro do sistema.</p>
-                    </div>
-                    <span class="tag">Turmas</span>
-                </div>
-
-                <div class="grid">
-                    <div class="form-group">
-                        <label>Como deseja organizar as turmas?</label>
-                        <select id="modeloTurma" onchange="toggleTurmas()">
-                            <option value="">Selecione</option>
-                            <option value="instrumento">Por instrumento/aula</option>
-                            <option value="professor">Por professor</option>
-                            <option value="sala">Por sala e horário</option>
-                            <option value="misto">Modelo misto</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Controle de vagas será por:</label>
-                        <select id="controleVagas">
-                            <option value="">Selecione</option>
-                            <option>Por turma</option>
-                            <option>Por sala</option>
-                            <option>Por horário</option>
-                            <option>Por professor</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group full hidden" id="turmasBox">
-                        <label>Informe os nomes das aulas/turmas iniciais</label>
-                        <textarea id="turmasInfo" placeholder="Ex:
-Violão Iniciante - Sala 1 - Segunda 14h - 8 vagas
-Piano Intermediário - Sala 2 - Quarta 19h - 8 vagas
-Bateria Básica - Sala 3 - Sexta 16h - 6 vagas"></textarea>
-                        <div class="preview-box" style="margin-top:12px;">
-                            <strong>Importante:</strong> essas informações serão usadas como base para montar a tela de
-                            Turmas e Vagas, onde será possível visualizar ocupação, disponibilidade e vincular alunos às
-                            aulas.
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===============================
-           WHATSAPP MANUAL
-      =============================== -->
-
-            <section class="section" id="secaoWhatsapp">
-                <div class="section-title">
-                    <div>
-                        <h2><i class="ri-whatsapp-line"></i> WhatsApp manual</h2>
-                        <p>Escolha quais mensagens pré-definidas serão úteis para agilizar o atendimento.</p>
-                    </div>
-                    <span class="tag">Mensagens</span>
-                </div>
-
-                <div class="grid">
-                    <div class="form-group full">
-                        <label>Quais modelos de mensagem deseja usar no sistema?</label>
-
-                        <div class="message-list">
-                            <label class="message-card">
-                                <input type="checkbox" checked>
-                                <div>
-                                    <strong>Aviso de vaga disponível</strong>
-                                    <p>Olá, [Aluno]. Temos uma vaga disponível para [Curso/Turma], na [Sala], com o(a)
-                                        professor(a) [Professor], no horário [Horário].</p>
-                                </div>
-                            </label>
-
-                            <label class="message-card">
-                                <input type="checkbox" checked>
-                                <div>
-                                    <strong>Confirmação de matrícula</strong>
-                                    <p>Olá, [Aluno]. Sua matrícula foi vinculada à turma [Curso/Turma], na [Sala], com
-                                        o(a) professor(a) [Professor], no horário [Horário].</p>
-                                </div>
-                            </label>
-
-                            <label class="message-card">
-                                <input type="checkbox" checked>
-                                <div>
-                                    <strong>Lembrete de aula</strong>
-                                    <p>Olá, [Aluno]. Passando para lembrar que sua aula está agendada para [Horário], na
-                                        [Sala], com o(a) professor(a) [Professor].</p>
-                                </div>
-                            </label>
-
-                            <label class="message-card">
-                                <input type="checkbox">
-                                <div>
-                                    <strong>Aluno atrasado</strong>
-                                    <p>Olá, [Aluno]. Percebemos que você ainda não chegou para sua aula. Caso esteja a
-                                        caminho ou precise remarcar, responda esta mensagem.</p>
-                                </div>
-                            </label>
-
-                            <label class="message-card">
-                                <input type="checkbox">
-                                <div>
-                                    <strong>Professor atrasado</strong>
-                                    <p>Olá, [Aluno]. Informamos que o(a) professor(a) [Professor] poderá chegar com
-                                        alguns minutos de atraso. Agradecemos a compreensão.</p>
-                                </div>
-                            </label>
-
-                            <label class="message-card">
-                                <input type="checkbox">
-                                <div>
-                                    <strong>Troca de sala</strong>
-                                    <p>Olá, [Aluno]. Houve uma alteração na organização da aula. Sua aula será realizada
-                                        na [Sala], no horário [Horário].</p>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-group full">
-                        <label>Deseja adicionar alguma mensagem personalizada?</label>
-                        <textarea id="mensagemPersonalizada"
-                            placeholder="Digite aqui alguma mensagem que a escola costuma enviar para alunos, responsáveis ou professores."></textarea>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===============================
-           PRIORIDADE
-      =============================== -->
-
-            <section class="section">
-                <div class="section-title">
-                    <div>
-                        <h2><i class="ri-list-check-3"></i> Prioridades do projeto</h2>
-                        <p>Ajuda a definir o que deve ser construído primeiro.</p>
-                    </div>
-                    <span class="tag">Finalização</span>
-                </div>
-
-                <div class="grid">
-                    <div class="form-group">
-                        <label>Qual área é mais urgente para a escola?</label>
-                        <select id="areaUrgente">
-                            <option value="">Selecione</option>
-                            <option>Agenda de salas</option>
-                            <option>Controle de turmas e vagas</option>
-                            <option>Cadastro de alunos</option>
-                            <option>Cadastro de professores</option>
-                            <option>WhatsApp manual</option>
-                            <option>Dashboard administrativo</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>O sistema será usado principalmente por:</label>
-                        <select id="usoPrincipal">
-                            <option value="">Selecione</option>
-                            <option>Somente o dono/administrador</option>
-                            <option>Professores</option>
-                            <option>Secretaria</option>
-                            <option>Todos os anteriores</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group full">
-                        <label>Observações finais</label>
-                        <textarea id="observacoesFinais"
-                            placeholder="Escreva aqui qualquer detalhe importante que precisa ser considerado antes do início do desenvolvimento."></textarea>
-                    </div>
-                </div>
-            </section>
-
-            <div class="actions-footer">
-                <button type="button" class="btn-soft" onclick="limparFormulario()">
-                    <i class="ri-refresh-line"></i> Limpar formulário
-                </button>
-
-                <button type="button" class="btn-main" onclick="enviarWhatsApp()">
-                    <i class="ri-whatsapp-line"></i> Enviar
-                </button>
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <h3>Agenda de hoje</h3>
+                <p>Salas, horários e ocupação simulada.</p>
+              </div>
+              <button class="btn-main" onclick="openModal('turma')"><i class="ri-add-line"></i> Nova turma</button>
             </div>
 
-        </form>
+            <div class="cards-grid" id="roomsGrid"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <h3>Ações rápidas</h3>
+                <p>Simule ações administrativas.</p>
+              </div>
+            </div>
+
+            <div style="display:grid; gap:12px;">
+              <button class="btn-main" onclick="openModal('aluno')"><i class="ri-user-add-line"></i> Cadastrar aluno</button>
+              <button class="btn-soft" onclick="openModal('professor')"><i class="ri-user-star-line"></i> Cadastrar professor</button>
+              <button class="btn-whats" onclick="goToPage('whatsapp')"><i class="ri-whatsapp-line"></i> Gerar mensagem WhatsApp</button>
+              <button class="btn-soft" onclick="goToPage('agenda')"><i class="ri-calendar-line"></i> Ver agenda completa</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================
+           AGENDA
+      =============================== -->
+
+      <section class="page" id="page-agenda">
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Agenda e salas</h3>
+              <p>Controle visual de salas, horários e vagas.</p>
+            </div>
+            <button class="btn-main" onclick="openModal('turma')"><i class="ri-add-line"></i> Agendar turma</button>
+          </div>
+
+          <div class="cards-grid" id="agendaGrid"></div>
+        </div>
+      </section>
+
+      <!-- ===============================
+           ALUNOS
+      =============================== -->
+
+      <section class="page" id="page-alunos">
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Alunos</h3>
+              <p>Cadastro e consulta de alunos interessados ou matriculados.</p>
+            </div>
+            <button class="btn-main" onclick="openModal('aluno')"><i class="ri-user-add-line"></i> Novo aluno</button>
+          </div>
+
+          <div class="search-row">
+            <input class="input" id="buscaAluno" placeholder="Buscar aluno por nome, telefone ou instrumento..." oninput="renderAlunos()">
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Aluno</th>
+                  <th>Telefone</th>
+                  <th>Instrumento</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="alunosTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================
+           PROFESSORES
+      =============================== -->
+
+      <section class="page" id="page-professores">
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Professores</h3>
+              <p>Cadastro administrativo de professores da escola.</p>
+            </div>
+            <button class="btn-main" onclick="openModal('professor')"><i class="ri-user-star-line"></i> Novo professor</button>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Professor</th>
+                  <th>Especialidade</th>
+                  <th>Telefone</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="professoresTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================
+           TURMAS
+      =============================== -->
+
+      <section class="page" id="page-turmas">
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Turmas e vagas</h3>
+              <p>Gerencie capacidade, alunos vinculados e disponibilidade.</p>
+            </div>
+            <button class="btn-main" onclick="openModal('turma')"><i class="ri-add-line"></i> Nova turma</button>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Turma</th>
+                  <th>Professor</th>
+                  <th>Sala/Horário</th>
+                  <th>Ocupação</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="turmasTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================
+           WHATSAPP
+      =============================== -->
+
+      <section class="page" id="page-whatsapp">
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>WhatsApp manual</h3>
+              <p>Gere mensagens padronizadas com dados reais da turma e do aluno.</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Aluno</label>
+              <select class="select" id="whatsAluno"></select>
+            </div>
+
+            <div class="form-group">
+              <label>Turma / Vaga</label>
+              <select class="select" id="whatsTurma"></select>
+            </div>
+
+            <div class="form-group full">
+              <label>Modelo de mensagem</label>
+              <select class="select" id="modeloMensagem" onchange="montarMensagemWhatsApp()">
+                <option value="disponibilidade">Aviso de vaga disponível</option>
+                <option value="matricula">Confirmação de matrícula</option>
+                <option value="lembrete">Lembrete de aula</option>
+                <option value="atraso_aluno">Aviso de atraso do aluno</option>
+                <option value="atraso_professor">Professor vai chegar atrasado</option>
+                <option value="troca_sala">Aviso de troca de sala</option>
+                <option value="personalizada">Mensagem personalizada</option>
+              </select>
+            </div>
+
+            <div class="form-group full">
+              <label>Mensagem gerada ou personalizada</label>
+              <textarea id="whatsMensagem" rows="9" placeholder="Digite ou edite a mensagem antes de abrir o WhatsApp..."></textarea>
+              <small style="display:block; color: var(--muted); margin-top:8px; line-height:1.5;">
+                O professor pode editar livremente esta mensagem antes de enviar. O sistema apenas prepara o texto para agilizar o atendimento.
+              </small>
+            </div>
+          </div>
+
+          <div class="modal-footer" style="padding-left:0; padding-right:0;">
+            <button class="btn-whats" onclick="abrirWhatsApp()">
+              <i class="ri-whatsapp-line"></i> Enviar
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ===============================
+       MODAL DINÂMICO
+  =============================== -->
+
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h3 id="modalTitle">Cadastro</h3>
+          <p id="modalSubtitle" style="color: var(--muted); margin-top:4px;">Preencha os dados abaixo.</p>
+        </div>
+        <button class="close-btn" onclick="closeModal()"><i class="ri-close-line"></i></button>
+      </div>
+
+      <div class="modal-body" id="modalBody"></div>
+
+      <div class="modal-footer" id="modalFooter"></div>
     </div>
+  </div>
 
-    <div class="toast" id="toast"></div>
+  <div class="toast" id="toast"></div>
 
-    <script>
-        /* ===============================
-           INTERATIVIDADE
-        =============================== */
+  <script>
+    /* ===============================
+       BANCO SIMULADO
+    =============================== */
 
-        function toggleSalas() {
-            const value = document.getElementById("qtdSalas").value;
-            const box = document.getElementById("salasManualBox");
+    const db = {
+      alunos: [
+        { id: 1, nome: "Vitória Almeida", telefone: "67 99999-1111", instrumento: "Violão", status: "Interessado" },
+        { id: 2, nome: "Carlos Henrique", telefone: "67 98888-2222", instrumento: "Piano", status: "Matriculado" },
+        { id: 3, nome: "Ana Luiza", telefone: "67 97777-3333", instrumento: "Bateria", status: "Interessado" }
+      ],
+      professores: [
+        { id: 1, nome: "Lucas Andrade", telefone: "67 99600-1010", especialidade: "Violão", status: "Ativo" },
+        { id: 2, nome: "Fernanda Lima", telefone: "67 99600-2020", especialidade: "Piano", status: "Ativo" },
+        { id: 3, nome: "Rafael Costa", telefone: "67 99600-3030", especialidade: "Bateria", status: "Ativo" },
+        { id: 4, nome: "Marina Souza", telefone: "67 99600-4040", especialidade: "Canto", status: "Ativo" },
+        { id: 5, nome: "João Pedro", telefone: "67 99600-5050", especialidade: "Teclado", status: "Ativo" }
+      ],
+      turmas: [
+        { id: 1, nome: "Violão Iniciante", sala: "Sala 1", professor: "Lucas Andrade", horario: "Segunda 14:00", capacidade: 8, ocupados: 7 },
+        { id: 2, nome: "Piano Intermediário", sala: "Sala 2", professor: "Fernanda Lima", horario: "Quarta 19:00", capacidade: 8, ocupados: 8 },
+        { id: 3, nome: "Bateria Básica", sala: "Sala 3", professor: "Rafael Costa", horario: "Sexta 16:00", capacidade: 8, ocupados: 6 },
+        { id: 4, nome: "Canto Popular", sala: "Sala 4", professor: "Marina Souza", horario: "Terça 18:00", capacidade: 10, ocupados: 5 },
+        { id: 5, nome: "Teclado Kids", sala: "Sala 5", professor: "João Pedro", horario: "Sábado 09:00", capacidade: 6, ocupados: 4 },
+        { id: 6, nome: "Violão Avançado", sala: "Sala 1", professor: "Lucas Andrade", horario: "Sexta 20:00", capacidade: 8, ocupados: 3 }
+      ]
+    };
 
-            if (value === "manual" || value === "4-6" || value === "7+") {
-                box.classList.remove("hidden");
-            } else {
-                box.classList.add("hidden");
-            }
-        }
+    let modalType = null;
 
-        function toggleProfessores() {
-            const value = document.getElementById("temProfessores").value;
-            document.getElementById("professoresBox").classList.toggle("hidden", value !== "sim");
-        }
+    /* ===============================
+       NAVEGAÇÃO
+    =============================== */
 
-        function toggleAlunos() {
-            const value = document.getElementById("temAlunos").value;
-            document.getElementById("alunosBox").classList.toggle("hidden", value !== "sim");
-        }
+    const titles = {
+      dashboard: ["Dashboard", "Visão geral da escola, salas, professores e alunos."],
+      agenda: ["Agenda e Salas", "Controle interno de ocupação e horários disponíveis."],
+      alunos: ["Alunos", "Cadastro, consulta e comunicação com alunos."],
+      professores: ["Professores", "Administração de professores e especialidades."],
+      turmas: ["Turmas e Vagas", "Gerenciamento de capacidade, ocupação e disponibilidade."],
+      whatsapp: ["WhatsApp Manual", "Mensagens pré-formatadas para agilizar o atendimento."]
+    };
 
-        function toggleTurmas() {
-            const value = document.getElementById("modeloTurma").value;
-            document.getElementById("turmasBox").classList.toggle("hidden", !value);
-        }
+    document.querySelectorAll(".nav-link").forEach(link => {
+      link.addEventListener("click", () => goToPage(link.dataset.page));
+    });
 
-        function limparFormulario() {
-            document.getElementById("requisitosForm").reset();
-            document.querySelectorAll(".hidden").forEach(el => el.classList.add("hidden"));
-            toast("Formulário limpo para novo preenchimento.");
-        }
+    function goToPage(page) {
+      document.querySelectorAll(".nav-link").forEach(btn => btn.classList.remove("active"));
+      document.querySelector(`[data-page="${page}"]`)?.classList.add("active");
 
-        function enviarWhatsApp() {
-            const numero = '5567935015153';
+      document.querySelectorAll(".page").forEach(section => section.classList.remove("active"));
+      document.getElementById(`page-${page}`).classList.add("active");
 
-            const valor = (selector) => {
-                const campo = document.querySelector(selector);
-                return campo && campo.value.trim() ? campo.value.trim() : 'Não informado';
-            };
+      document.getElementById("pageTitle").textContent = titles[page][0];
+      document.getElementById("pageSubtitle").textContent = titles[page][1];
 
-            const valorSelect = (selector) => {
-                const campo = document.querySelector(selector);
-                return campo && campo.value ? campo.options[campo.selectedIndex].text.trim() : 'Não informado';
-            };
+      document.getElementById("sidebar").classList.remove("open");
+    }
 
-            const valorTextarea = (selector) => {
-                const campo = document.querySelector(selector);
-                return campo && campo.value.trim() ? campo.value.trim() : 'Não informado';
-            };
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("open");
+    }
 
-            const itensMarcados = (selector) => {
-                const area = document.querySelector(selector);
-                if (!area) return 'Nenhuma opção selecionada';
+    /* ===============================
+       RENDERIZAÇÃO
+    =============================== */
 
-                const marcados = Array.from(area.querySelectorAll('input[type="checkbox"]:checked'));
-                if (!marcados.length) return 'Nenhuma opção selecionada';
+    function calcularVagas() {
+      return db.turmas.reduce((total, turma) => total + Math.max(turma.capacidade - turma.ocupados, 0), 0);
+    }
 
-                return marcados.map((input) => {
-                    const card = input.closest('.check-card, .message-card');
-                    const titulo = card?.querySelector('strong')?.textContent?.trim() || 'Opção selecionada';
-                    const descricao = card?.querySelector('span, p')?.textContent?.trim() || '';
-                    return descricao ? `- ${titulo}: ${descricao}` : `- ${titulo}`;
-                }).join('\n');
-            };
+    function atualizarStats() {
+      document.getElementById("statAlunos").textContent = db.alunos.length;
+      document.getElementById("statProfessores").textContent = db.professores.length;
+      document.getElementById("statTurmas").textContent = db.turmas.length;
+      document.getElementById("statVagas").textContent = calcularVagas();
+    }
 
-            const secoes = document.querySelectorAll('.section');
+    function statusTurma(turma) {
+      const vagas = turma.capacidade - turma.ocupados;
+      if (vagas <= 0) return { label: "Lotada", className: "danger" };
+      if (vagas <= 2) return { label: `${vagas} vaga(s)`, className: "warning" };
+      return { label: `${vagas} vaga(s)`, className: "success" };
+    }
 
-            const mensagem = `
-                ANÁLISE DE REQUISITOS - SISTEMA INTERNO DA ESCOLA DE MÚSICA
+    function renderRooms() {
+      const html = db.turmas.slice(0, 4).map(turma => roomCard(turma)).join("");
+      document.getElementById("roomsGrid").innerHTML = html;
+      document.getElementById("agendaGrid").innerHTML = db.turmas.map(turma => roomCard(turma)).join("");
+    }
 
-                ====================================
+    function roomCard(turma) {
+      const status = statusTurma(turma);
+      const percent = Math.min((turma.ocupados / turma.capacidade) * 100, 100);
 
-                1. DADOS GERAIS
+      return `
+        <div class="room-card">
+          <div class="room-head">
+            <div>
+              <h4>${turma.nome}</h4>
+              <small style="color:var(--muted)">${turma.sala} • ${turma.horario}</small>
+            </div>
+            <span class="badge ${status.className}">${status.label}</span>
+          </div>
 
-                Escola: ${valor('[name="escola"]')}
-                Responsável: ${valor('[name="responsavel"]')}
-                WhatsApp para contato: ${valor('[name="telefone"]')}
-                Usuários internos: ${valorSelect('[name="usuarios"]')}
+          <div class="room-info">
+            <span><strong>Professor:</strong> ${turma.professor}</span>
+            <span><strong>Ocupação:</strong> ${turma.ocupados}/${turma.capacidade} alunos</span>
+          </div>
 
-                ====================================
+          <div class="progress"><span style="width:${percent}%"></span></div>
 
-                2. DASHBOARD ADMINISTRATIVO
+          <div class="actions">
+            <button class="btn-soft" onclick="vincularAluno(${turma.id})"><i class="ri-user-add-line"></i> Vincular aluno</button>
+            <button class="btn-whats" onclick="prepararWhatsTurma(${turma.id})"><i class="ri-whatsapp-line"></i> WhatsApp</button>
+          </div>
+        </div>
+      `;
+    }
 
-                Informações selecionadas:
-                ${itensMarcados('#secaoDashboard')}
+    function renderAlunos() {
+      const busca = document.getElementById("buscaAluno")?.value?.toLowerCase() || "";
+      const alunos = db.alunos.filter(a => `${a.nome} ${a.telefone} ${a.instrumento}`.toLowerCase().includes(busca));
 
-                Outro indicador importante:
-                ${valorTextarea('#dashboardObs')}
+      document.getElementById("alunosTable").innerHTML = alunos.map(aluno => `
+        <tr>
+          <td><strong>${aluno.nome}</strong></td>
+          <td>${aluno.telefone}</td>
+          <td>${aluno.instrumento}</td>
+          <td><span class="badge ${aluno.status === "Matriculado" ? "success" : "warning"}">${aluno.status}</span></td>
+          <td>
+            <div class="actions">
+              <button class="btn-soft" onclick="editarAluno(${aluno.id})" title="Editar aluno">
+                <i class="ri-pencil-line"></i>
+              </button>
 
-                ====================================
+              <button class="btn-whats" onclick="prepararWhatsAluno(${aluno.id})" title="WhatsApp">
+                <i class="ri-whatsapp-line"></i>
+              </button>
 
-                3. AGENDA DE SALAS
+              <button class="btn-danger" onclick="removerAluno(${aluno.id})" title="Remover aluno">
+                <i class="ri-delete-bin-line"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join("");
+    }
 
-                Quantidade de salas:
-                ${valorSelect('#qtdSalas')}
+    function renderProfessores() {
+      document.getElementById("professoresTable").innerHTML = db.professores.map(prof => `
+        <tr>
+          <td><strong>${prof.nome}</strong></td>
+          <td>${prof.especialidade}</td>
+          <td>${prof.telefone}</td>
+          <td><span class="badge success">${prof.status}</span></td>
+          <td>
+            <div class="actions">
+              <button class="btn-soft" onclick="toast('Simulação: edição do professor ${prof.nome}.')"><i class="ri-edit-line"></i></button>
+              <button class="btn-danger" onclick="removerProfessor(${prof.id})"><i class="ri-delete-bin-line"></i></button>
+            </div>
+          </td>
+        </tr>
+      `).join("");
+    }
 
-                Organização dos horários:
-                ${valorSelect('#organizacaoHorarios')}
+    function renderTurmas() {
+      document.getElementById("turmasTable").innerHTML = db.turmas.map(turma => {
+        const status = statusTurma(turma);
 
-                Salas informadas:
-                ${valorTextarea('#salasManual')}
+        return `
+          <tr>
+            <td><strong>${turma.nome}</strong></td>
+            <td>${turma.professor}</td>
+            <td>${turma.sala}<br><small style="color:var(--muted)">${turma.horario}</small></td>
+            <td>${turma.ocupados}/${turma.capacidade}</td>
+            <td><span class="badge ${status.className}">${status.label}</span></td>
+            <td>
+              <div class="actions">
+                <button class="btn-soft" onclick="editarTurma(${turma.id})" title="Editar turma">
+                  <i class="ri-pencil-line"></i>
+                </button>
 
-                Observações:
-                ${valorTextarea('#agendaObs')}
+                <button class="btn-soft" onclick="vincularAluno(${turma.id})" title="Vincular aluno">
+                  <i class="ri-user-add-line"></i>
+                </button>
 
-                ====================================
+                <button class="btn-whats" onclick="prepararWhatsTurma(${turma.id})" title="WhatsApp">
+                  <i class="ri-whatsapp-line"></i>
+                </button>
 
-                4. ALUNOS E PROFESSORES
+                <button class="btn-danger" onclick="removerTurma(${turma.id})" title="Remover turma">
+                  <i class="ri-delete-bin-line"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
 
-                Lista inicial de professores:
-                ${valorSelect('#temProfessores')}
+    function renderWhatsOptions() {
+      const alunosSelect = document.getElementById("whatsAluno");
+      const turmasSelect = document.getElementById("whatsTurma");
 
-                Lista inicial de alunos:
-                ${valorSelect('#temAlunos')}
+      alunosSelect.innerHTML = db.alunos.map(a => `<option value="${a.id}">${a.nome} - ${a.instrumento}</option>`).join("");
+      turmasSelect.innerHTML = db.turmas.map(t => `<option value="${t.id}">${t.nome} - ${t.sala} - ${t.horario}</option>`).join("");
 
-                Professores:
-                ${valorTextarea('#professoresInfo')}
+      alunosSelect.onchange = montarMensagemWhatsApp;
+      turmasSelect.onchange = montarMensagemWhatsApp;
 
-                Alunos:
-                ${valorTextarea('#alunosInfo')}
+      montarMensagemWhatsApp();
+    }
 
-                ====================================
+    function renderAll() {
+      atualizarStats();
+      renderRooms();
+      renderAlunos();
+      renderProfessores();
+      renderTurmas();
+      renderWhatsOptions();
+    }
 
-                5. TURMAS E VAGAS
+    /* ===============================
+       MODAIS
+    =============================== */
 
-                Modelo das turmas:
-                ${valorSelect('#modeloTurma')}
+    function openModal(type) {
+      modalType = type;
+      const overlay = document.getElementById("overlay");
+      const title = document.getElementById("modalTitle");
+      const subtitle = document.getElementById("modalSubtitle");
+      const body = document.getElementById("modalBody");
+      const footer = document.getElementById("modalFooter");
 
-                Controle de vagas:
-                ${valorSelect('#controleVagas')}
+      if (type === "aluno") {
+        title.textContent = "Cadastrar aluno";
+        subtitle.textContent = "Cadastro realizado pelo professor ou administração.";
+        body.innerHTML = `
+          <div class="form-grid">
+            <div class="form-group"><label>Nome do aluno</label><input class="input" id="formNome" placeholder="Ex: Maria Souza"></div>
+            <div class="form-group"><label>Telefone/WhatsApp</label><input class="input" id="formTelefone" placeholder="Ex: 67 99999-0000"></div>
+            <div class="form-group"><label>Instrumento desejado</label><input class="input" id="formInstrumento" placeholder="Ex: Violão"></div>
+            <div class="form-group"><label>Status</label><select class="select" id="formStatus"><option>Interessado</option><option>Matriculado</option></select></div>
+          </div>
+        `;
+        footer.innerHTML = `<button class="btn-soft" onclick="closeModal()">Cancelar</button><button class="btn-main" onclick="salvarAluno()"><i class="ri-save-line"></i> Salvar aluno</button>`;
+      }
 
-                Turmas cadastradas:
-                ${valorTextarea('#turmasInfo')}
+      if (type === "professor") {
+        title.textContent = "Cadastrar professor";
+        subtitle.textContent = "Cadastro permitido para a administração da escola.";
+        body.innerHTML = `
+          <div class="form-grid">
+            <div class="form-group"><label>Nome do professor</label><input class="input" id="formNome" placeholder="Ex: Lucas Andrade"></div>
+            <div class="form-group"><label>Telefone</label><input class="input" id="formTelefone" placeholder="Ex: 67 99999-0000"></div>
+            <div class="form-group"><label>Especialidade</label><input class="input" id="formEspecialidade" placeholder="Ex: Piano"></div>
+            <div class="form-group"><label>Status</label><select class="select" id="formStatus"><option>Ativo</option><option>Inativo</option></select></div>
+          </div>
+        `;
+        footer.innerHTML = `<button class="btn-soft" onclick="closeModal()">Cancelar</button><button class="btn-main" onclick="salvarProfessor()"><i class="ri-save-line"></i> Salvar professor</button>`;
+      }
 
-                ====================================
+      if (type === "turma") {
+        title.textContent = "Cadastrar turma";
+        subtitle.textContent = "Defina sala, horário, professor e capacidade.";
+        body.innerHTML = `
+          <div class="form-grid">
+            <div class="form-group"><label>Nome da turma</label><input class="input" id="formNome" placeholder="Ex: Violão Iniciante"></div>
+            <div class="form-group"><label>Sala</label><input class="input" id="formSala" placeholder="Ex: Sala 1"></div>
+            <div class="form-group"><label>Professor</label><select class="select" id="formProfessor">${db.professores.map(p => `<option>${p.nome}</option>`).join("")}</select></div>
+            <div class="form-group"><label>Horário</label><input class="input" id="formHorario" placeholder="Ex: Segunda 14:00"></div>
+            <div class="form-group"><label>Capacidade</label><input class="input" id="formCapacidade" type="number" value="8"></div>
+            <div class="form-group"><label>Alunos ocupando</label><input class="input" id="formOcupados" type="number" value="0"></div>
+          </div>
+        `;
+        footer.innerHTML = `<button class="btn-soft" onclick="closeModal()">Cancelar</button><button class="btn-main" onclick="salvarTurma()"><i class="ri-save-line"></i> Salvar turma</button>`;
+      }
 
-                6. WHATSAPP MANUAL
+      overlay.classList.add("active");
+    }
 
-                Mensagens selecionadas:
-                ${itensMarcados('#secaoWhatsapp')}
+    function closeModal() {
+      document.getElementById("overlay").classList.remove("active");
+    }
 
-                Mensagem personalizada:
-                ${valorTextarea('#mensagemPersonalizada')}
+    function validarCampo(id, nome) {
+      const value = document.getElementById(id)?.value?.trim();
+      if (!value) {
+        toast(`Preencha o campo: ${nome}.`);
+        return null;
+      }
+      return value;
+    }
 
-                ====================================
+    function salvarAluno() {
+      const nome = validarCampo("formNome", "Nome do aluno");
+      const telefone = validarCampo("formTelefone", "Telefone");
+      const instrumento = validarCampo("formInstrumento", "Instrumento");
+      if (!nome || !telefone || !instrumento) return;
 
-                7. PRIORIDADES
+      db.alunos.push({
+        id: Date.now(),
+        nome,
+        telefone,
+        instrumento,
+        status: document.getElementById("formStatus").value
+      });
 
-                Área mais urgente:
-                ${valorSelect('#areaUrgente')}
+      closeModal();
+      renderAll();
+      toast("Aluno cadastrado com sucesso.");
+    }
 
-                Uso principal:
-                ${valorSelect('#usoPrincipal')}
+    function editarAluno(id) {
+      const aluno = db.alunos.find(a => a.id === id);
+      if (!aluno) return;
 
-                Observações finais:
-                ${valorTextarea('#observacoesFinais')}
-            `;
+      const overlay = document.getElementById("overlay");
+      const title = document.getElementById("modalTitle");
+      const subtitle = document.getElementById("modalSubtitle");
+      const body = document.getElementById("modalBody");
+      const footer = document.getElementById("modalFooter");
 
-            const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
-            window.open(url, '_blank');
-        }
+      title.textContent = "Editar aluno";
+      subtitle.textContent = "Atualize as informações do aluno para demonstração.";
 
-        function toast(message) {
-            const toast = document.getElementById("toast");
-            toast.textContent = message;
-            toast.classList.add("active");
+      body.innerHTML = `
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nome do aluno</label>
+            <input class="input" id="editAlunoNome" value="${aluno.nome}">
+          </div>
 
-            setTimeout(() => {
-                toast.classList.remove("active");
-            }, 3200);
-        }
-    </script>
+          <div class="form-group">
+            <label>Telefone/WhatsApp</label>
+            <input class="input" id="editAlunoTelefone" value="${aluno.telefone}">
+          </div>
+
+          <div class="form-group">
+            <label>Instrumento</label>
+            <input class="input" id="editAlunoInstrumento" value="${aluno.instrumento}">
+          </div>
+
+          <div class="form-group">
+            <label>Status</label>
+            <select class="select" id="editAlunoStatus">
+              <option ${aluno.status === "Interessado" ? "selected" : ""}>Interessado</option>
+              <option ${aluno.status === "Matriculado" ? "selected" : ""}>Matriculado</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label>Observações</label>
+            <textarea rows="5" id="editAlunoObs">Aluno interessado em aulas de ${aluno.instrumento}.
+Contato pode ser realizado via WhatsApp.</textarea>
+          </div>
+        </div>
+      `;
+
+      footer.innerHTML = `
+        <button class="btn-soft" onclick="closeModal()">Cancelar</button>
+        <button class="btn-main" onclick="salvarEdicaoAluno(${aluno.id})">
+          <i class="ri-save-line"></i> Salvar alterações
+        </button>
+      `;
+
+      overlay.classList.add("active");
+    }
+
+    function salvarEdicaoAluno(id) {
+      const aluno = db.alunos.find(a => a.id === id);
+      if (!aluno) return;
+
+      const nome = document.getElementById("editAlunoNome").value.trim();
+      const telefone = document.getElementById("editAlunoTelefone").value.trim();
+      const instrumento = document.getElementById("editAlunoInstrumento").value.trim();
+      const status = document.getElementById("editAlunoStatus").value;
+
+      if (!nome || !telefone || !instrumento) {
+        toast("Preencha todos os campos obrigatórios do aluno.");
+        return;
+      }
+
+      aluno.nome = nome;
+      aluno.telefone = telefone;
+      aluno.instrumento = instrumento;
+      aluno.status = status;
+
+      closeModal();
+      renderAll();
+      toast("Aluno atualizado com sucesso.");
+    }
+
+    function salvarProfessor() {
+      const nome = validarCampo("formNome", "Nome do professor");
+      const telefone = validarCampo("formTelefone", "Telefone");
+      const especialidade = validarCampo("formEspecialidade", "Especialidade");
+      if (!nome || !telefone || !especialidade) return;
+
+      db.professores.push({
+        id: Date.now(),
+        nome,
+        telefone,
+        especialidade,
+        status: document.getElementById("formStatus").value
+      });
+
+      closeModal();
+      renderAll();
+      toast("Professor cadastrado com sucesso.");
+    }
+
+    function salvarTurma() {
+      const nome = validarCampo("formNome", "Nome da turma");
+      const sala = validarCampo("formSala", "Sala");
+      const professor = document.getElementById("formProfessor").value;
+      const horario = validarCampo("formHorario", "Horário");
+      const capacidade = Number(document.getElementById("formCapacidade").value || 0);
+      const ocupados = Number(document.getElementById("formOcupados").value || 0);
+
+      if (!nome || !sala || !horario) return;
+      if (capacidade <= 0 || ocupados < 0 || ocupados > capacidade) {
+        toast("Verifique a capacidade e a ocupação da turma.");
+        return;
+      }
+
+      db.turmas.push({ id: Date.now(), nome, sala, professor, horario, capacidade, ocupados });
+
+      closeModal();
+      renderAll();
+      toast("Turma cadastrada com sucesso.");
+    }
+
+    function editarTurma(id) {
+      const turma = db.turmas.find(t => t.id === id);
+      if (!turma) return;
+
+      const overlay = document.getElementById("overlay");
+      const title = document.getElementById("modalTitle");
+      const subtitle = document.getElementById("modalSubtitle");
+      const body = document.getElementById("modalBody");
+      const footer = document.getElementById("modalFooter");
+
+      title.textContent = "Editar turma";
+      subtitle.textContent = "Atualize as informações da turma, sala, professor, horário e vagas.";
+
+      body.innerHTML = `
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nome da turma</label>
+            <input class="input" id="editNome" value="${turma.nome}">
+          </div>
+
+          <div class="form-group">
+            <label>Sala</label>
+            <input class="input" id="editSala" value="${turma.sala}">
+          </div>
+
+          <div class="form-group">
+            <label>Professor</label>
+            <select class="select" id="editProfessor">
+              ${db.professores.map(prof => `
+                <option value="${prof.nome}" ${prof.nome === turma.professor ? "selected" : ""}>
+                  ${prof.nome}
+                </option>
+              `).join("")}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Horário</label>
+            <input class="input" id="editHorario" value="${turma.horario}">
+          </div>
+
+          <div class="form-group">
+            <label>Capacidade máxima</label>
+            <input class="input" id="editCapacidade" type="number" value="${turma.capacidade}">
+          </div>
+
+          <div class="form-group">
+            <label>Alunos ocupando</label>
+            <input class="input" id="editOcupados" type="number" value="${turma.ocupados}">
+          </div>
+
+          <div class="form-group full">
+            <label>Resumo atual da turma</label>
+            <textarea rows="5" readonly>Turma: ${turma.nome}
+Professor(a): ${turma.professor}
+Sala: ${turma.sala}
+Horário: ${turma.horario}
+Capacidade: ${turma.capacidade}
+Ocupação atual: ${turma.ocupados}
+Vagas disponíveis: ${Math.max(turma.capacidade - turma.ocupados, 0)}</textarea>
+          </div>
+        </div>
+      `;
+
+      footer.innerHTML = `
+        <button class="btn-soft" onclick="closeModal()">Cancelar</button>
+        <button class="btn-main" onclick="salvarEdicaoTurma(${turma.id})">
+          <i class="ri-save-line"></i> Salvar alterações
+        </button>
+      `;
+
+      overlay.classList.add("active");
+    }
+
+    function salvarEdicaoTurma(id) {
+      const turma = db.turmas.find(t => t.id === id);
+      if (!turma) return;
+
+      const nome = document.getElementById("editNome").value.trim();
+      const sala = document.getElementById("editSala").value.trim();
+      const professor = document.getElementById("editProfessor").value;
+      const horario = document.getElementById("editHorario").value.trim();
+      const capacidade = Number(document.getElementById("editCapacidade").value || 0);
+      const ocupados = Number(document.getElementById("editOcupados").value || 0);
+
+      if (!nome || !sala || !horario) {
+        toast("Preencha todos os campos obrigatórios.");
+        return;
+      }
+
+      if (capacidade <= 0) {
+        toast("A capacidade deve ser maior que zero.");
+        return;
+      }
+
+      if (ocupados < 0) {
+        toast("A ocupação não pode ser negativa.");
+        return;
+      }
+
+      if (ocupados > capacidade) {
+        toast("A ocupação não pode ser maior que a capacidade.");
+        return;
+      }
+
+      turma.nome = nome;
+      turma.sala = sala;
+      turma.professor = professor;
+      turma.horario = horario;
+      turma.capacidade = capacidade;
+      turma.ocupados = ocupados;
+
+      closeModal();
+      renderAll();
+      toast("Turma atualizada com sucesso.");
+    }
+
+    /* ===============================
+       AÇÕES
+    =============================== */
+
+    function removerAluno(id) {
+      const index = db.alunos.findIndex(a => a.id === id);
+      if (index >= 0) db.alunos.splice(index, 1);
+      renderAll();
+      toast("Aluno removido da demonstração.");
+    }
+
+    function removerProfessor(id) {
+      const index = db.professores.findIndex(p => p.id === id);
+      if (index >= 0) db.professores.splice(index, 1);
+      renderAll();
+      toast("Professor removido da demonstração.");
+    }
+
+    function removerTurma(id) {
+      const index = db.turmas.findIndex(t => t.id === id);
+      if (index >= 0) db.turmas.splice(index, 1);
+      renderAll();
+      toast("Turma removida da demonstração.");
+    }
+
+    function vincularAluno(turmaId) {
+      const turma = db.turmas.find(t => t.id === turmaId);
+      if (!turma) return;
+
+      if (turma.ocupados >= turma.capacidade) {
+        toast("Essa turma está lotada. Não é possível vincular novos alunos.");
+        return;
+      }
+
+      const overlay = document.getElementById("overlay");
+      const title = document.getElementById("modalTitle");
+      const subtitle = document.getElementById("modalSubtitle");
+      const body = document.getElementById("modalBody");
+      const footer = document.getElementById("modalFooter");
+
+      title.textContent = "Vincular aluno à turma";
+      subtitle.textContent = `${turma.nome} • ${turma.sala} • ${turma.horario}`;
+
+      body.innerHTML = `
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>Selecione o aluno</label>
+            <select class="select" id="selectAlunoVinculo">
+              ${db.alunos.map(aluno => `
+                <option value="${aluno.id}">
+                  ${aluno.nome} - ${aluno.instrumento} - ${aluno.status}
+                </option>
+              `).join("")}
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label>Turma selecionada</label>
+            <input class="input" value="${turma.nome} | ${turma.sala} | ${turma.horario}" readonly>
+          </div>
+
+          <div class="form-group full">
+            <label>Resumo da vaga</label>
+            <textarea rows="4" readonly>Professor(a): ${turma.professor}
+Ocupação atual: ${turma.ocupados}/${turma.capacidade}
+Vagas disponíveis: ${turma.capacidade - turma.ocupados}</textarea>
+          </div>
+        </div>
+      `;
+
+      footer.innerHTML = `
+        <button class="btn-soft" onclick="closeModal()">Cancelar</button>
+        <button class="btn-main" onclick="confirmarVinculoAluno(${turma.id})">
+          <i class="ri-user-follow-line"></i> Confirmar vínculo
+        </button>
+      `;
+
+      overlay.classList.add("active");
+    }
+
+    function confirmarVinculoAluno(turmaId) {
+
+      const turma = db.turmas.find(t => t.id === turmaId);
+
+      const alunoId = Number(
+          document.getElementById("selectAlunoVinculo")?.value
+      );
+
+      const aluno = db.alunos.find(a => a.id === alunoId);
+
+      if (!turma || !aluno) {
+
+          toast("Selecione um aluno válido para continuar.");
+          return;
+
+      }
+
+      if (turma.ocupados >= turma.capacidade) {
+
+          toast("Essa turma ficou lotada. Não é possível vincular novos alunos.");
+
+          closeModal();
+          renderAll();
+
+          return;
+
+      }
+
+      /* ===============================
+         VINCULANDO ALUNO
+      =============================== */
+
+      turma.ocupados += 1;
+
+      aluno.status = "Matriculado";
+
+      const vagasRestantes = turma.capacidade - turma.ocupados;
+
+      /* ===============================
+         COR DO INDICADOR DE VAGAS
+      =============================== */
+
+      let emojiVaga = "🟢";
+
+      if (vagasRestantes <= 0) {
+
+          emojiVaga = "🔴";
+
+      } else if (
+          vagasRestantes <= Math.floor(turma.capacidade / 2)
+      ) {
+
+          emojiVaga = "🟡";
+
+      }
+
+      /* ===============================
+         MENSAGEM WHATSAPP
+      =============================== */
+
+      const mensagem = `Olá, ${aluno.nome}! Tudo bem?
+
+Sua matrícula foi vinculada com sucesso à turma abaixo:
+
+🎓 Curso/Turma: ${turma.nome}
+🚪 Sala: ${turma.sala}
+🌙 Professor(a): ${turma.professor}
+🕐 Horário: ${turma.horario}
+⚜️ Status: Matrícula vinculada
+${emojiVaga} Vagas restantes na turma: ${Math.max(vagasRestantes, 0)}
+
+Caso tenha alguma dúvida, responda esta mensagem para receber mais informações.
+
+Mensagem enviada pela escola de música.`;
+
+      /* ===============================
+         FECHANDO MODAL
+      =============================== */
+
+      closeModal();
+
+      renderAll();
+
+      toast(
+          `${aluno.nome} foi vinculado à turma ${turma.nome}. Abrindo WhatsApp...`
+      );
+
+      /* ===============================
+         ABRIR WHATSAPP
+      =============================== */
+
+      const url =
+          `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+
+      setTimeout(() => {
+
+          window.open(url, "_blank");
+
+      }, 500);
+
+    }
+
+    /* ===============================
+       WHATSAPP
+    =============================== */
+
+    function prepararWhatsAluno(alunoId) {
+      goToPage("whatsapp");
+      document.getElementById("whatsAluno").value = alunoId;
+      montarMensagemWhatsApp();
+    }
+
+    function prepararWhatsTurma(turmaId) {
+      goToPage("whatsapp");
+      document.getElementById("whatsTurma").value = turmaId;
+      montarMensagemWhatsApp();
+    }
+
+    function montarMensagemWhatsApp() {
+      const alunoId = Number(document.getElementById("whatsAluno")?.value);
+      const turmaId = Number(document.getElementById("whatsTurma")?.value);
+      const modelo = document.getElementById("modeloMensagem")?.value || "disponibilidade";
+
+      const aluno = db.alunos.find(a => a.id === alunoId) || db.alunos[0];
+      const turma = db.turmas.find(t => t.id === turmaId) || db.turmas[0];
+
+      if (!aluno || !turma) return;
+
+      const vagas = Math.max(turma.capacidade - turma.ocupados, 0);
+
+      const modelos = {
+        disponibilidade: `Olá, ${aluno.nome}! Tudo bem?
+
+Identificamos uma disponibilidade para aula.
+
+Curso/Turma: ${turma.nome}
+Sala: ${turma.sala}
+Professor(a): ${turma.professor}
+Horário: ${turma.horario}
+Vagas disponíveis: ${vagas}
+
+Caso tenha interesse, responda esta mensagem para confirmarmos sua participação.
+
+Mensagem enviada pela escola de música.`,
+
+        matricula: `Olá, ${aluno.nome}! Tudo bem?
+
+Sua matrícula foi vinculada com sucesso à turma abaixo:
+
+Curso/Turma: ${turma.nome}
+Sala: ${turma.sala}
+Professor(a): ${turma.professor}
+Horário: ${turma.horario}
+Status: Matrícula vinculada
+Vagas restantes na turma: ${vagas}
+
+Caso tenha alguma dúvida, responda esta mensagem para receber mais informações.
+
+Mensagem enviada pela escola de música.`,
+
+        lembrete: `Olá, ${aluno.nome}! Tudo bem?
+
+Passando para lembrar que sua aula está agendada conforme os dados abaixo:
+
+Curso/Turma: ${turma.nome}
+Sala: ${turma.sala}
+Professor(a): ${turma.professor}
+Horário: ${turma.horario}
+
+Pedimos que chegue com alguns minutos de antecedência.
+
+Mensagem enviada pela escola de música.`,
+
+        atraso_aluno: `Olá, ${aluno.nome}! Tudo bem?
+
+Percebemos que você ainda não chegou para sua aula.
+
+Curso/Turma: ${turma.nome}
+Sala: ${turma.sala}
+Professor(a): ${turma.professor}
+Horário: ${turma.horario}
+
+Caso esteja a caminho ou precise remarcar, responda esta mensagem para verificarmos a melhor opção.
+
+Mensagem enviada pela escola de música.`,
+
+        atraso_professor: `Olá, ${aluno.nome}! Tudo bem?
+
+Informamos que o(a) professor(a) ${turma.professor} poderá chegar com alguns minutos de atraso para a aula.
+
+Curso/Turma: ${turma.nome}
+Sala: ${turma.sala}
+Horário: ${turma.horario}
+
+Pedimos desculpas pelo transtorno e agradecemos a compreensão.
+
+Mensagem enviada pela escola de música.`,
+
+        troca_sala: `Olá, ${aluno.nome}! Tudo bem?
+
+Houve uma atualização na organização da aula.
+
+Curso/Turma: ${turma.nome}
+Professor(a): ${turma.professor}
+Horário: ${turma.horario}
+Nova sala: ${turma.sala}
+
+Por favor, confira a sala correta ao chegar na escola.
+
+Mensagem enviada pela escola de música.`,
+
+        personalizada: `Olá, ${aluno.nome}! Tudo bem?
+
+Digite aqui a mensagem personalizada para este aluno.
+
+Aluno: ${aluno.nome}
+Curso/Turma: ${turma.nome}
+Sala: ${turma.sala}
+Professor(a): ${turma.professor}
+Horário: ${turma.horario}
+
+Mensagem enviada pela escola de música.`
+      };
+
+      document.getElementById("whatsMensagem").value = modelos[modelo];
+    }
+
+    function abrirWhatsApp() {
+      montarMensagemWhatsApp();
+      const mensagem = document.getElementById("whatsMensagem").value;
+      const url = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, "_blank");
+    }
+
+    /* ===============================
+       TOAST
+    =============================== */
+
+    function toast(message) {
+      const el = document.getElementById("toast");
+      el.textContent = message;
+      el.classList.add("active");
+      setTimeout(() => el.classList.remove("active"), 3000);
+    }
+
+    renderAll();
+  </script>
 
 </body>
-
 </html>
